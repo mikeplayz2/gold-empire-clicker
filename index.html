@@ -1,28 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Gold Empire Clicker</title>
+<title>🎃 Gold Empire Clicker 👻</title>
 
-    logo.png
-
-    style.css
-</head>
+<!-- Put logo.png in the same folder as this file -->
+<link rel="icon" type="image/png" href="logo.png">
 
 <style>
+
 body{
     margin:0;
-    font-family:Segoe UI;
-    background:linear-gradient(135deg,#0f172a,#1e293b);
-    color:white;
+    min-height:100vh;
+    font-family:Segoe UI,sans-serif;
     text-align:center;
+    color:white;
+    background:
+    linear-gradient(
+        180deg,
+        #080808,
+        #1a0e00,
+        #2d1600
+    );
 }
 
 h1{
-    color:gold;
-    text-shadow:0 0 15px gold;
+    color:#ff8c00;
+    text-shadow:
+    0 0 10px #ff8c00,
+    0 0 20px #ff8c00,
+    0 0 40px orange;
 }
 
 .container{
@@ -36,53 +45,71 @@ h1{
     backdrop-filter:blur(10px);
     border-radius:20px;
     padding:15px;
-    margin:10px;
-    box-shadow:0 0 20px rgba(255,215,0,.15);
+    margin:15px;
+    box-shadow:
+    0 0 20px rgba(255,140,0,.15);
 }
 
 .stats{
     display:flex;
     justify-content:center;
-    gap:15px;
     flex-wrap:wrap;
+    gap:15px;
 }
 
 .card{
     min-width:180px;
 }
 
-button{
-    border:none;
-    padding:12px;
-    margin:5px;
-    border-radius:12px;
-    cursor:pointer;
-    color:white;
-    font-weight:bold;
-    transition:.2s;
-}
-
-button:hover{
-    transform:scale(1.05);
-}
-
 .mine{
     width:180px;
     height:180px;
+    font-size:60px;
+    border:none;
     border-radius:50%;
-    font-size:24px;
-    background:linear-gradient(gold,orange);
-    color:black;
-    box-shadow:0 0 25px gold;
+    cursor:pointer;
+    background:
+    linear-gradient(
+        #ff8c00,
+        #ff4500
+    );
+    box-shadow:
+    0 0 30px orange;
+    transition:.2s;
+}
+
+.mine:hover{
+    transform:scale(1.08);
 }
 
 .shopBtn{
     width:250px;
-    background:linear-gradient(45deg,#2563eb,#60a5fa);
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:
+    linear-gradient(
+        45deg,
+        #ff6a00,
+        #ff9d00
+    );
+    color:white;
+    margin:5px;
 }
 
 .rebirth{
-    background:linear-gradient(45deg,#9333ea,#ec4899);
+    background:
+    linear-gradient(
+        45deg,
+        purple,
+        deeppink
+    );
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    cursor:pointer;
 }
 
 .achievement{
@@ -95,48 +122,83 @@ button:hover{
     color:gold;
     font-weight:bold;
     pointer-events:none;
-    animation:float 1s linear forwards;
+    animation:floatUp 1s linear forwards;
 }
 
-@keyframes float{
+@keyframes floatUp{
     from{
-        transform:translateY(0);
         opacity:1;
+        transform:translateY(0);
     }
     to{
-        transform:translateY(-80px);
         opacity:0;
+        transform:translateY(-50px);
     }
 }
 
 #goldenNugget{
-    display:none;
     position:fixed;
-    font-size:50px;
+    display:none;
+    font-size:60px;
     cursor:pointer;
     z-index:999;
-    animation:pulse 1s infinite;
 }
 
-@keyframes pulse{
-    50%{transform:scale(1.2);}
+.bat{
+    position:fixed;
+    font-size:40px;
+    pointer-events:none;
+    animation:fly 15s linear infinite;
 }
+
+@keyframes fly{
+    from{
+        left:-100px;
+    }
+
+    to{
+        left:110%;
+    }
+}
+
+#empire{
+    font-size:32px;
+    min-height:60px;
+    line-height:2;
+}
+
 </style>
 </head>
-
 <body>
+
+<div class="bat" style="top:50px;">🦇</div>
+<div class="bat" style="top:200px;animation-delay:3s;">🦇</div>
+<div class="bat" style="top:350px;animation-delay:7s;">🦇</div>
 
 <div class="container">
 
-<h1>⛏️ Gold Empire Clicker ⛏️</h1>
+<h1>🎃 Gold Empire Clicker 👻</h1>
+
+<div style="font-size:35px;">
+🎃 👻 🕷️ 🦇 🎃 👻 🕷️ 🦇 🎃
+</div>
 
 <div class="panel">
-<h2>Gold: <span id="gold">0</span></h2>
-<h3>GPS: <span id="gps">0</span></h3>
+
+<h2>
+Gold:
+<span id="gold">0</span>
+</h2>
+
+<h3>
+GPS:
+<span id="gps">0</span>
+</h3>
 
 <button class="mine" onclick="mine(event)">
-💰
+🎃
 </button>
+
 </div>
 
 <div class="stats">
@@ -159,53 +221,67 @@ button:hover{
 </div>
 
 <div class="panel">
+
 <h2>🏪 Shop</h2>
 
 <button class="shopBtn" onclick="buyMiner()">
-Miner (+1 GPS)
+⛏️ Miner (+1 GPS)
 <br>
-Cost: <span id="minerCost">15</span>
+Cost:
+<span id="minerCost">15</span>
 </button>
 
 <br>
 
 <button class="shopBtn" onclick="buyFactory()">
-Factory (+10 GPS)
+🏭 Factory (+10 GPS)
 <br>
-Cost: <span id="factoryCost">100</span>
+Cost:
+<span id="factoryCost">100</span>
 </button>
 
 <br>
 
 <button class="shopBtn" onclick="upgradePickaxe()">
-Upgrade Pickaxe
+🔨 Upgrade Pickaxe
 <br>
-Cost: <span id="upgradeCost">25</span>
+Cost:
+<span id="upgradeCost">25</span>
 </button>
 
 </div>
 
 <div class="panel">
+
+<h2>🏰 Empire</h2>
+
+<div id="empire"></div>
+
+</div>
+
+<div class="panel">
+
+<h2>🏆 Achievements</h2>
+
+<div id="achievements"></div>
+
+</div>
+
+<div class="panel">
+
 <h2>⭐ Prestige</h2>
 
 <button class="rebirth" onclick="rebirth()">
 Rebirth at 100,000 Gold
 </button>
 
-<p>
-Each Prestige = +25% Gold Bonus
-</p>
+<p>+25% Bonus Per Prestige</p>
 
-</div>
-
-<div class="panel">
-<h2>🏆 Achievements</h2>
-<div id="achievements"></div>
 </div>
 
 </div>
 
-<div id="goldenNugget">🌟</div>
+<div id="goldenNugget">🎃</div>
 
 <script>
 
@@ -224,62 +300,107 @@ let upgradeCost = Number(localStorage.upgradeCost)||25;
 let unlocked = JSON.parse(localStorage.unlocked || "[]");
 
 function bonus(){
-  return 1 + prestige*0.25;
+    return 1 + prestige * 0.25;
 }
 
 function getGPS(){
-  return (miners*1 + factories*10) * bonus();
+    return (miners + factories * 10) * bonus();
 }
 
 function save(){
+
     localStorage.gold = gold;
     localStorage.totalGold = totalGold;
     localStorage.clickPower = clickPower;
     localStorage.prestige = prestige;
+
     localStorage.miners = miners;
     localStorage.factories = factories;
+
     localStorage.minerCost = minerCost;
     localStorage.factoryCost = factoryCost;
     localStorage.upgradeCost = upgradeCost;
-    localStorage.unlocked = JSON.stringify(unlocked);
+
+    localStorage.unlocked =
+    JSON.stringify(unlocked);
+}
+
+function updateEmpire(){
+
+    let empire =
+    document.getElementById("empire");
+
+    empire.innerHTML = "";
+
+    for(let i=0;i<miners;i++){
+        empire.innerHTML += "⛏️ ";
+    }
+
+    for(let i=0;i<factories;i++){
+        empire.innerHTML += "🏭 ";
+    }
 }
 
 function update(){
 
-    document.getElementById("gold").innerText=
+    document.getElementById("gold").innerText =
     Math.floor(gold);
 
-    document.getElementById("gps").innerText=
+    document.getElementById("gps").innerText =
     getGPS().toFixed(1);
 
-    document.getElementById("clickPower").innerText=
+    document.getElementById("clickPower").innerText =
     clickPower;
 
-    document.getElementById("prestigeLevel").innerText=
+    document.getElementById("prestigeLevel").innerText =
     prestige;
 
-    document.getElementById("totalGold").innerText=
+    document.getElementById("totalGold").innerText =
     Math.floor(totalGold);
 
-    document.getElementById("minerCost").innerText=
+    document.getElementById("minerCost").innerText =
     minerCost;
 
-    document.getElementById("factoryCost").innerText=
+    document.getElementById("factoryCost").innerText =
     factoryCost;
 
-    document.getElementById("upgradeCost").innerText=
+    document.getElementById("upgradeCost").innerText =
     upgradeCost;
 
+    updateEmpire();
+
     checkAchievements();
+
     save();
+}
+
+function showFloating(text,x,y){
+
+    let div = document.createElement("div");
+
+    div.className = "floatText";
+
+    div.innerText = text;
+
+    div.style.left = x + "px";
+    div.style.top = y + "px";
+
+    document.body.appendChild(div);
+
+    setTimeout(()=>{
+        div.remove();
+    },1000);
 }
 
 function mine(e){
 
-    let gain = clickPower * bonus();
+    let gain =
+    clickPower * bonus();
 
-    if(Math.random()<0.1){
-        gain*=10;
+    if(Math.random() < 0.10){
+
+        gain *= 10;
+
         showFloating(
         "CRIT x10!",
         e.pageX,
@@ -287,11 +408,11 @@ function mine(e){
         );
     }
 
-    gold+=gain;
-    totalGold+=gain;
+    gold += gain;
+    totalGold += gain;
 
     showFloating(
-    "+"+Math.floor(gain),
+    "+" + Math.floor(gain),
     e.pageX,
     e.pageY
     );
@@ -299,32 +420,16 @@ function mine(e){
     update();
 }
 
-function showFloating(text,x,y){
-
-    let div = document.createElement("div");
-
-    div.className="floatText";
-    div.innerText=text;
-
-    div.style.left=x+"px";
-    div.style.top=y+"px";
-
-    document.body.appendChild(div);
-
-    setTimeout(()=>{
-      div.remove();
-    },1000);
-}
-
 function buyMiner(){
 
-    if(gold>=minerCost){
+    if(gold >= minerCost){
 
-        gold-=minerCost;
+        gold -= minerCost;
+
         miners++;
 
-        minerCost=
-        Math.floor(minerCost*1.15);
+        minerCost =
+        Math.floor(minerCost * 1.15);
 
         update();
     }
@@ -332,13 +437,14 @@ function buyMiner(){
 
 function buyFactory(){
 
-    if(gold>=factoryCost){
+    if(gold >= factoryCost){
 
-        gold-=factoryCost;
+        gold -= factoryCost;
+
         factories++;
 
-        factoryCost=
-        Math.floor(factoryCost*1.18);
+        factoryCost =
+        Math.floor(factoryCost * 1.18);
 
         update();
     }
@@ -346,14 +452,14 @@ function buyFactory(){
 
 function upgradePickaxe(){
 
-    if(gold>=upgradeCost){
+    if(gold >= upgradeCost){
 
-        gold-=upgradeCost;
+        gold -= upgradeCost;
 
         clickPower++;
 
-        upgradeCost=
-        Math.floor(upgradeCost*2);
+        upgradeCost =
+        Math.floor(upgradeCost * 2);
 
         update();
     }
@@ -361,127 +467,51 @@ function upgradePickaxe(){
 
 function rebirth(){
 
-    if(totalGold>=100000){
+    if(totalGold >= 100000){
 
         prestige++;
 
-        gold=0;
-        miners=0;
-        factories=0;
-        clickPower=1;
+        gold = 0;
+        miners = 0;
+        factories = 0;
+        clickPower = 1;
 
-        minerCost=15;
-        factoryCost=100;
-        upgradeCost=25;
+        minerCost = 15;
+        factoryCost = 100;
+        upgradeCost = 25;
 
         alert(
-        "Prestige "+prestige+
-        " unlocked!"
+        "🎃 Prestige " +
+        prestige +
+        " Unlocked!"
         );
 
         update();
     }
 }
 
-setInterval(()=>{
-
-    let income = getGPS();
-
-    gold += income;
-    totalGold += income;
-
-    update();
-
-},1000);
-
 const achievements = [
+
 ["First Gold",1],
 ["100 Gold",100],
 ["1,000 Gold",1000],
 ["10,000 Gold",10000],
-["100,000 Gold",100000],
-["Millionaire",1000000]
+["100,000 Gold",100000]
+
 ];
 
 function checkAchievements(){
 
-    const box =
-    document.getElementById(
-    "achievements"
-    );
+    let box =
+    document.getElementById("achievements");
 
-    box.innerHTML="";
+    box.innerHTML = "";
 
     achievements.forEach(a=>{
 
-        if(totalGold>=a[1]){
+        if(totalGold >= a[1]){
 
-            if(!unlocked.includes(a[0]))
-                unlocked.push(a[0]);
-
-            let div=
+            let div =
             document.createElement("div");
 
-            div.className=
-            "achievement";
-
-            div.innerText=
-            "✅ "+a[0];
-
-            box.appendChild(div);
-        }
-    });
-}
-
-function spawnNugget(){
-
-    const nugget =
-    document.getElementById(
-    "goldenNugget"
-    );
-
-    nugget.style.display="block";
-
-    nugget.style.left=
-    Math.random()*80+"vw";
-
-    nugget.style.top=
-    Math.random()*80+"vh";
-
-    nugget.onclick=()=>{
-
-        let reward =
-        getGPS()*100 + 100;
-
-        gold+=reward;
-        totalGold+=reward;
-
-        alert(
-        "Golden Nugget! +" +
-        Math.floor(reward) +
-        " Gold"
-        );
-
-        nugget.style.display="none";
-
-        update();
-    };
-
-    setTimeout(()=>{
-        nugget.style.display="none";
-    },10000);
-}
-
-setInterval(()=>{
-
-    if(Math.random()<0.35)
-    spawnNugget();
-
-},30000);
-
-update();
-
-</script>
-
-</body>
-</html>
+            div.className =
