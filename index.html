@@ -4,514 +4,446 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>🎃 Gold Empire Clicker 👻</title>
-
-<!-- Put logo.png in the same folder as this file -->
-<link rel="icon" type="image/png" href="logo.png">
+<title>🎃 Gold Empire Clicker</title>
+<link rel="icon" href="logo.png">
 
 <style>
-
 body{
     margin:0;
-    min-height:100vh;
-    font-family:Segoe UI,sans-serif;
-    text-align:center;
+    font-family:Arial,sans-serif;
+    background:#120b08;
     color:white;
-    background:
-    linear-gradient(
-        180deg,
-        #080808,
-        #1a0e00,
-        #2d1600
-    );
+    text-align:center;
 }
 
 h1{
     color:#ff8c00;
-    text-shadow:
-    0 0 10px #ff8c00,
-    0 0 20px #ff8c00,
-    0 0 40px orange;
-}
-
-.container{
-    max-width:1000px;
-    margin:auto;
-    padding:20px;
+    text-shadow:0 0 20px orange;
 }
 
 .panel{
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(10px);
-    border-radius:20px;
+    margin:15px auto;
     padding:15px;
-    margin:15px;
-    box-shadow:
-    0 0 20px rgba(255,140,0,.15);
+    max-width:1000px;
+    background:#24160f;
+    border:2px solid #ff8c00;
+    border-radius:12px;
 }
 
-.stats{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:15px;
-}
-
-.card{
-    min-width:180px;
+button{
+    margin:4px;
+    padding:8px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
 }
 
 .mine{
     width:180px;
     height:180px;
-    font-size:60px;
-    border:none;
     border-radius:50%;
-    cursor:pointer;
-    background:
-    linear-gradient(
-        #ff8c00,
-        #ff4500
-    );
-    box-shadow:
-    0 0 30px orange;
-    transition:.2s;
-}
-
-.mine:hover{
-    transform:scale(1.08);
-}
-
-.shopBtn{
-    width:250px;
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    background:
-    linear-gradient(
-        45deg,
-        #ff6a00,
-        #ff9d00
-    );
-    color:white;
-    margin:5px;
-}
-
-.rebirth{
-    background:
-    linear-gradient(
-        45deg,
-        purple,
-        deeppink
-    );
-    color:white;
-    border:none;
-    padding:12px;
-    border-radius:12px;
-    cursor:pointer;
-}
-
-.achievement{
-    color:lime;
-    margin:5px;
-}
-
-.floatText{
-    position:absolute;
-    color:gold;
-    font-weight:bold;
-    pointer-events:none;
-    animation:floatUp 1s linear forwards;
-}
-
-@keyframes floatUp{
-    from{
-        opacity:1;
-        transform:translateY(0);
-    }
-    to{
-        opacity:0;
-        transform:translateY(-50px);
-    }
-}
-
-#goldenNugget{
-    position:fixed;
-    display:none;
     font-size:60px;
-    cursor:pointer;
-    z-index:999;
+    background:orange;
+}
+
+.shop{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.shop button{
+    width:180px;
+    background:#ff8c00;
+    color:white;
+}
+
+#empire{
+    font-size:35px;
+    min-height:60px;
+}
+
+.inventory-item{
+    margin:4px;
 }
 
 .bat{
     position:fixed;
-    font-size:40px;
+    font-size:32px;
     pointer-events:none;
-    animation:fly 15s linear infinite;
+    animation:fly 18s linear infinite;
 }
 
 @keyframes fly{
-    from{
-        left:-100px;
-    }
-
-    to{
-        left:110%;
-    }
+    from{left:-100px;}
+    to{left:110%;}
 }
 
-#empire{
-    font-size:32px;
-    min-height:60px;
-    line-height:2;
+#pumpkinEvent{
+    display:none;
+    position:fixed;
+    font-size:60px;
+    cursor:pointer;
 }
-
 </style>
 </head>
 <body>
 
-<div class="bat" style="top:50px;">🦇</div>
-<div class="bat" style="top:200px;animation-delay:3s;">🦇</div>
-<div class="bat" style="top:350px;animation-delay:7s;">🦇</div>
-
-<div class="container">
+<div class="bat" style="top:80px;">🦇</div>
+<div class="bat" style="top:220px;animation-delay:5s;">🦇</div>
 
 <h1>🎃 Gold Empire Clicker 👻</h1>
 
-<div style="font-size:35px;">
-🎃 👻 🕷️ 🦇 🎃 👻 🕷️ 🦇 🎃
-</div>
-
 <div class="panel">
+<h2>Gold: <span id="gold">0</span></h2>
+<h3>Candy: <span id="candy">0</span></h3>
+<h3>GPS: <span id="gps">0</span></h3>
 
-<h2>
-Gold:
-<span id="gold">0</span>
-</h2>
-
-<h3>
-GPS:
-<span id="gps">0</span>
-</h3>
-
-<button class="mine" onclick="mine(event)">
+<button class="mine" onclick="mine()">
 🎃
 </button>
-
-</div>
-
-<div class="stats">
-
-<div class="panel card">
-<h3>Click Power</h3>
-<span id="clickPower">1</span>
-</div>
-
-<div class="panel card">
-<h3>Prestige</h3>
-<span id="prestigeLevel">0</span>
-</div>
-
-<div class="panel card">
-<h3>Total Gold</h3>
-<span id="totalGold">0</span>
-</div>
-
 </div>
 
 <div class="panel">
-
-<h2>🏪 Shop</h2>
-
-<button class="shopBtn" onclick="buyMiner()">
-⛏️ Miner (+1 GPS)
-<br>
-Cost:
-<span id="minerCost">15</span>
-</button>
-
-<br>
-
-<button class="shopBtn" onclick="buyFactory()">
-🏭 Factory (+10 GPS)
-<br>
-Cost:
-<span id="factoryCost">100</span>
-</button>
-
-<br>
-
-<button class="shopBtn" onclick="upgradePickaxe()">
-🔨 Upgrade Pickaxe
-<br>
-Cost:
-<span id="upgradeCost">25</span>
-</button>
-
-</div>
-
-<div class="panel">
-
 <h2>🏰 Empire</h2>
-
 <div id="empire"></div>
-
 </div>
 
 <div class="panel">
+<h2>🏪 Halloween Shop</h2>
 
-<h2>🏆 Achievements</h2>
+<div id="shop" class="shop"></div>
 
-<div id="achievements"></div>
-
-</div>
-
-<div class="panel">
-
-<h2>⭐ Prestige</h2>
-
-<button class="rebirth" onclick="rebirth()">
-Rebirth at 100,000 Gold
+<button onclick="buyLootBag()">
+🎁 Trick-or-Treat Bag (100 Gold)
 </button>
 
-<p>+25% Bonus Per Prestige</p>
-
 </div>
 
+<div class="panel">
+<h2>🎒 Inventory</h2>
+<div id="inventory"></div>
 </div>
 
-<div id="goldenNugget">🎃</div>
+<div class="panel">
+<h2>🏆 Achievements</h2>
+<div id="achievements"></div>
+</div>
+
+<div id="pumpkinEvent">🎃</div>
 
 <script>
 
 let gold = Number(localStorage.gold)||0;
-let totalGold = Number(localStorage.totalGold)||0;
-let clickPower = Number(localStorage.clickPower)||1;
-let prestige = Number(localStorage.prestige)||0;
+let candy = Number(localStorage.candy)||0;
 
-let miners = Number(localStorage.miners)||0;
-let factories = Number(localStorage.factories)||0;
+let inventory =
+JSON.parse(localStorage.inventory||"{}");
 
-let minerCost = Number(localStorage.minerCost)||15;
-let factoryCost = Number(localStorage.factoryCost)||100;
-let upgradeCost = Number(localStorage.upgradeCost)||25;
+const buildings = [
 
-let unlocked = JSON.parse(localStorage.unlocked || "[]");
+{name:"🎃 Pumpkin Patch",cost:15,gps:1,count:0},
+{name:"🕯️ Candle Maker",cost:50,gps:3,count:0},
+{name:"🕷️ Spider Nest",cost:100,gps:6,count:0},
+{name:"🦇 Bat Cave",cost:250,gps:12,count:0},
+{name:"🍬 Candy Factory",cost:500,gps:25,count:0},
+{name:"👻 Ghost House",cost:1000,gps:50,count:0},
+{name:"🧙 Witch Hut",cost:2500,gps:100,count:0},
+{name:"🐈‍⬛ Cat Sanctuary",cost:5000,gps:250,count:0},
+{name:"⚰️ Crypt",cost:10000,gps:500,count:0},
+{name:"🪦 Graveyard",cost:25000,gps:1000,count:0},
+{name:"🏚️ Haunted Manor",cost:50000,gps:2500,count:0},
+{name:"🎪 Haunted Carnival",cost:100000,gps:5000,count:0},
+{name:"🏰 Haunted Castle",cost:250000,gps:10000,count:0},
+{name:"💀 Reaper Temple",cost:500000,gps:25000,count:0},
+{name:"🐉 Bone Dragon Lair",cost:1000000,gps:50000,count:0}
 
-function bonus(){
-    return 1 + prestige * 0.25;
-}
-
-function getGPS(){
-    return (miners + factories * 10) * bonus();
-}
+];
 
 function save(){
 
-    localStorage.gold = gold;
-    localStorage.totalGold = totalGold;
-    localStorage.clickPower = clickPower;
-    localStorage.prestige = prestige;
+localStorage.gold=gold;
+localStorage.candy=candy;
+localStorage.inventory=
+JSON.stringify(inventory);
 
-    localStorage.miners = miners;
-    localStorage.factories = factories;
-
-    localStorage.minerCost = minerCost;
-    localStorage.factoryCost = factoryCost;
-    localStorage.upgradeCost = upgradeCost;
-
-    localStorage.unlocked =
-    JSON.stringify(unlocked);
 }
 
-function updateEmpire(){
+function getGPS(){
 
-    let empire =
-    document.getElementById("empire");
+let gps=0;
 
-    empire.innerHTML = "";
+for(let b of buildings){
 
-    for(let i=0;i<miners;i++){
-        empire.innerHTML += "⛏️ ";
-    }
+gps += b.count*b.gps;
 
-    for(let i=0;i<factories;i++){
-        empire.innerHTML += "🏭 ";
-    }
+}
+
+return gps;
 }
 
 function update(){
 
-    document.getElementById("gold").innerText =
-    Math.floor(gold);
+document.getElementById("gold").textContent=
+Math.floor(gold);
 
-    document.getElementById("gps").innerText =
-    getGPS().toFixed(1);
+document.getElementById("candy").textContent=
+candy;
 
-    document.getElementById("clickPower").innerText =
-    clickPower;
+document.getElementById("gps").textContent=
+getGPS();
 
-    document.getElementById("prestigeLevel").innerText =
-    prestige;
+drawInventory();
+drawEmpire();
+drawAchievements();
 
-    document.getElementById("totalGold").innerText =
-    Math.floor(totalGold);
-
-    document.getElementById("minerCost").innerText =
-    minerCost;
-
-    document.getElementById("factoryCost").innerText =
-    factoryCost;
-
-    document.getElementById("upgradeCost").innerText =
-    upgradeCost;
-
-    updateEmpire();
-
-    checkAchievements();
-
-    save();
+save();
 }
 
-function showFloating(text,x,y){
+function mine(){
 
-    let div = document.createElement("div");
+gold++;
 
-    div.className = "floatText";
+if(Math.random()<0.10){
 
-    div.innerText = text;
+addItem("🍬 Candy");
 
-    div.style.left = x + "px";
-    div.style.top = y + "px";
+candy++;
 
-    document.body.appendChild(div);
-
-    setTimeout(()=>{
-        div.remove();
-    },1000);
 }
 
-function mine(e){
+update();
 
-    let gain =
-    clickPower * bonus();
-
-    if(Math.random() < 0.10){
-
-        gain *= 10;
-
-        showFloating(
-        "CRIT x10!",
-        e.pageX,
-        e.pageY
-        );
-    }
-
-    gold += gain;
-    totalGold += gain;
-
-    showFloating(
-    "+" + Math.floor(gain),
-    e.pageX,
-    e.pageY
-    );
-
-    update();
 }
 
-function buyMiner(){
+function drawShop(){
 
-    if(gold >= minerCost){
+const shop=
+document.getElementById("shop");
 
-        gold -= minerCost;
+for(let i=0;i<buildings.length;i++){
 
-        miners++;
+let b=
+document.createElement("button");
 
-        minerCost =
-        Math.floor(minerCost * 1.15);
+b.innerHTML=
+`${buildings[i].name}<br>
+Cost: ${buildings[i].cost}`;
 
-        update();
-    }
+b.onclick=()=>buyBuilding(i);
+
+shop.appendChild(b);
+
 }
 
-function buyFactory(){
-
-    if(gold >= factoryCost){
-
-        gold -= factoryCost;
-
-        factories++;
-
-        factoryCost =
-        Math.floor(factoryCost * 1.18);
-
-        update();
-    }
 }
 
-function upgradePickaxe(){
+function buyBuilding(i){
 
-    if(gold >= upgradeCost){
+let b=buildings[i];
 
-        gold -= upgradeCost;
+if(gold>=b.cost){
 
-        clickPower++;
+gold-=b.cost;
 
-        upgradeCost =
-        Math.floor(upgradeCost * 2);
+b.count++;
 
-        update();
-    }
+b.cost=
+Math.floor(b.cost*1.15);
+
+update();
+drawShopRefresh();
+
 }
 
-function rebirth(){
-
-    if(totalGold >= 100000){
-
-        prestige++;
-
-        gold = 0;
-        miners = 0;
-        factories = 0;
-        clickPower = 1;
-
-        minerCost = 15;
-        factoryCost = 100;
-        upgradeCost = 25;
-
-        alert(
-        "🎃 Prestige " +
-        prestige +
-        " Unlocked!"
-        );
-
-        update();
-    }
 }
 
-const achievements = [
+function drawShopRefresh(){
 
-["First Gold",1],
-["100 Gold",100],
-["1,000 Gold",1000],
-["10,000 Gold",10000],
-["100,000 Gold",100000]
+document.getElementById("shop")
+.innerHTML="";
 
+drawShop();
+
+}
+
+function drawEmpire(){
+
+let text="";
+
+for(let b of buildings){
+
+for(let i=0;i<b.count;i++){
+
+text += b.name.split(" ")[0];
+
+}
+
+}
+
+document.getElementById("empire")
+.innerHTML=text;
+
+}
+
+function addItem(item){
+
+if(!inventory[item]){
+
+inventory[item]=0;
+
+}
+
+inventory[item]++;
+
+}
+
+function drawInventory(){
+
+let html="";
+
+for(let item in inventory){
+
+html += `
+<div class="inventory-item">
+${item} x${inventory[item]}
+<button onclick="sellItem('${item}')">
+Sell
+</button>
+</div>
+`;
+
+}
+
+document.getElementById("inventory")
+.innerHTML=html;
+
+}
+
+function sellItem(item){
+
+if(inventory[item] > 0){
+
+inventory[item]--;
+
+gold += 25;
+
+if(inventory[item]===0){
+
+delete inventory[item];
+
+}
+
+update();
+
+}
+
+}
+
+function buyLootBag(){
+
+if(gold<100)return;
+
+gold-=100;
+
+const items=[
+"🍬 Candy",
+"🕷️ Spider Silk",
+"🦇 Bat Wing",
+"👻 Ghost Essence",
+"💀 Ancient Skull"
 ];
 
-function checkAchievements(){
+let reward=
+items[Math.floor(Math.random()*items.length)];
 
-    let box =
-    document.getElementById("achievements");
+addItem(reward);
 
-    box.innerHTML = "";
+alert("You found: " + reward);
 
-    achievements.forEach(a=>{
+update();
 
-        if(totalGold >= a[1]){
+}
 
-            let div =
-            document.createElement("div");
+function drawAchievements(){
+
+let html="";
+
+if(gold>=100)
+html+="✅ 100 Gold<br>";
+
+if(gold>=1000)
+html+="✅ 1,000 Gold<br>";
+
+if(getGPS()>=100)
+html+="✅ Growing Empire<br>";
+
+if(Object.keys(inventory).length>=5)
+html+="✅ Collector<br>";
+
+document.getElementById("achievements")
+.innerHTML=html;
+
+}
+
+function spawnPumpkin(){
+
+const p=
+document.getElementById("pumpkinEvent");
+
+p.style.display="block";
+
+p.style.left=
+(Math.random()*80)+"vw";
+
+p.style.top=
+(Math.random()*80)+"vh";
+
+p.onclick=()=>{
+
+gold+=500;
+
+addItem("🎃 Pumpkin");
+
+alert("🎃 Jackpot!");
+
+p.style.display="none";
+
+update();
+
+};
+
+setTimeout(()=>{
+p.style.display="none";
+},10000);
+
+}
+
+setInterval(()=>{
+
+gold += getGPS();
+
+update();
+
+},1000);
+
+setInterval(()=>{
+
+if(Math.random()<0.4){
+
+spawnPumpkin();
+
+}
+
+},30000);
+
+drawShop();
+update();
+
+</script>
+
+</body>
+</html>
+``
 
             div.className =
